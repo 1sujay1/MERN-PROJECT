@@ -36,7 +36,7 @@ const YOUR_DOMAIN = process.env.YOUR_DOMAIN;
 
 app.post('/payment', function (req, res) {
 
-    const { token } = req.body;
+    const { token, price } = req.body;
     // Moreover you can take more details from user 
     // like Address, Name, etc from form 
     stripe.customers.create({
@@ -53,7 +53,7 @@ app.post('/payment', function (req, res) {
     })
         .then((customer) => {
             return stripe.paymentIntents.create({
-                amount: 7000,    // Charing Rs 25 
+                amount: price,    // Charing Rs 25 
                 description: 'Web Development Product',
                 currency: 'usd',
                 customer: customer.id,
