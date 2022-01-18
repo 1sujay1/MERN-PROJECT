@@ -6,11 +6,16 @@ const StripeCheckoutButton = ({ price }) => {
     const priceForStripe = price * 100;
     const publishableKey = 'pk_test_51KGptrSJWXiAb9UttKlO3b7K5eh1lwlapq9hdBLQVfRGVo42JoZNgmeXyJxCXBGNCONg3Hg8XDHEzovLuqEDvXdg00JV1oDMEg'
 
+    // useEffect(async () => {
+    //     const data = await axios({ url: '/pay', method: 'get' })
+    //     console.log("data", data);
+    // }, [])
+
     const onToken = token => {
         // console.log(token);
 
         axios({
-            url: 'http://localhost:5000/payment',
+            url: '/payment',
             method: 'post',
             data: {
                 token,
@@ -26,7 +31,7 @@ const StripeCheckoutButton = ({ price }) => {
             }
         }).catch(err => {
             console.log("Error", err);
-            console.log("Parsed Error", JSON.parse(err));
+            // console.log("Parsed Error", JSON.parse(err));
             alert("Please make sure to use provided credit card")
         })
 

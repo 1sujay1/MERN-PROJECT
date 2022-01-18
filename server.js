@@ -34,6 +34,11 @@ if (process.env.NODE_ENV === 'production') {
 // })
 const YOUR_DOMAIN = process.env.YOUR_DOMAIN;
 
+
+// app.get('/pay', (req, res) => {
+//     res.send("hello man")
+// })
+
 app.post('/payment', function (req, res) {
 
     const { token, price } = req.body;
