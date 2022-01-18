@@ -8,7 +8,7 @@ const app = express();
 
 if (process.env.NODE_ENV != 'production') require('dotenv').config();
 
-const stripe = require('stripe')('sk_test_51KGptrSJWXiAb9UtQmppq82tMBvW7KaGuvSRdldtX34kV0y6U44RNPmVFL052jJQba0gophD1G8OqRBEXQBTcWm000jsDIKsRF')
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 const port = process.env.PORT || 5000;
 
@@ -21,11 +21,11 @@ app.use(express.urlencoded({ extended: false }));
 // console.log("__dirname", path.resolve(__dirname, 'client/build', 'index.html'));
 
 if (process.env.NODE_ENV === 'production') {
-    console.log("Its production now");
+    // console.log("Its production now");
     app.use(express.static(path.join(__dirname, 'client/build')));
 
     app.get('*', (req, res) => {
-        req.sendFile(path.resolve(__dirname, 'client/build', 'index.html'))
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
     })
 }
 
