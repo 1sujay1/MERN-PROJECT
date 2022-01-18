@@ -7,7 +7,7 @@ const StripeCheckoutButton = ({ price }) => {
     const publishableKey = 'pk_test_51KGptrSJWXiAb9UttKlO3b7K5eh1lwlapq9hdBLQVfRGVo42JoZNgmeXyJxCXBGNCONg3Hg8XDHEzovLuqEDvXdg00JV1oDMEg'
 
     const onToken = token => {
-        console.log(token);
+        // console.log(token);
 
         axios({
             url: 'http://localhost:5000/payment',
@@ -18,7 +18,12 @@ const StripeCheckoutButton = ({ price }) => {
             }
         }).then(res => {
             // console.log("res", res);
-            alert("Payment successfull")
+            // alert("Payment successfull")
+            if (res.data.status) {
+                if (res.data.paymentIntent.next_action.type === 'redirect_to_url') {
+                    window.location = res.data.paymentIntent.next_action.redirect_to_url.url;
+                }
+            }
         }).catch(err => {
             console.log("Error", err);
             console.log("Parsed Error", JSON.parse(err));

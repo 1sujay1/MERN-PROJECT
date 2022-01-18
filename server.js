@@ -51,17 +51,27 @@ app.post('/payment', function (req, res) {
             country: 'India',
         }
     })
+
         .then((customer) => {
             return stripe.paymentIntents.create({
-                amount: price,    // Charing Rs 25 
-                description: 'Web Development Product',
-                currency: 'usd',
-                customer: customer.id,
                 payment_method_types: ['card'],
+                amount: price,    // Charing Rs 25 
+                // description: customer.id,
+                currency: 'inr',
+                customer: customer.id,
+                payment_method: token.card.id,
+                confirmation_method: 'automatic',
+                confirm: true
             });
         })
-        .then((charge) => {
-            res.send("Success") // If no error occurs 
+        .then(async (charge) => {
+            console.log("charge1", charge);
+            const paymentIntent = await stripe.paymentIntents.confirm(
+                charge.id,
+                { return_url: 'http://localhost:3000/' }
+            );
+            res.json({ "status": true, paymentIntent }) // If no error occurs 
+            // console.log("paymentIntent", paymentIntent);
         })
         .catch((err) => {
             res.send(err)    // If some error occurs 
@@ -71,3 +81,15 @@ app.listen(port, error => {
     if (error) throw error;
     console.log('Server running on port' + port)
 })
+
+/**
+ * card: {id: 'card_1KJN7GSJWXiAb9UtjQmHwIet', object: 'card', address_city: 'Bangalore', address_country: 'India', address_line1: 'Bangalore', …}
+client_ip: "27.59.96.250"
+created: 1642533194
+email: "testfasd@example11.com"
+id: "tok_1KJN7GSJWXiAb9UtMUYyTk7c"
+livemode: false
+object: "token"
+type: "card"
+used: false
+ */
