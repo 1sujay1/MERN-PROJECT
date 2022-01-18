@@ -65,10 +65,10 @@ app.post('/payment', function (req, res) {
             });
         })
         .then(async (charge) => {
-            console.log("charge1", charge);
+            // console.log("charge1", charge);
             const paymentIntent = await stripe.paymentIntents.confirm(
                 charge.id,
-                { return_url: 'http://localhost:3000/' }
+                { return_url: 'https://ecom-expert.herokuapp.com/' }
             );
             res.json({ "status": true, paymentIntent }) // If no error occurs 
             // console.log("paymentIntent", paymentIntent);

@@ -17,7 +17,7 @@ const StripeCheckoutButton = ({ price }) => {
                 price: priceForStripe
             }
         }).then(res => {
-            // console.log("res", res);
+            console.log("res", res);
             // alert("Payment successfull")
             if (res.data.status) {
                 if (res.data.paymentIntent.next_action.type === 'redirect_to_url') {
