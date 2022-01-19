@@ -9,4 +9,8 @@
         display: flex;
         justify-content: space-between;
     }
+    @media screen and(max-width:800px) {
+        flex-direction: column;
+        width: 100%;
+    }
 }

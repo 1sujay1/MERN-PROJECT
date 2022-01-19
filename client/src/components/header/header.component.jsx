@@ -8,15 +8,15 @@ import { signOutStart } from "../../redux/user/user.actions";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import CartIcon from "../cart-icon/cart-icon.component";
-import { ReactComponent as Logo } from './../../assets/images/crown.svg';
+import mainLogo from './../../assets/images/logo.png';
 // import './header.style.scss';
 
-import { HeaderContainer, LogoContainer, OptionsContainer, OptionLink } from './header.style.jsx';
+import { HeaderContainer, LogoContainer, OptionsContainer, OptionLink, MainLogo } from './header.style.jsx';
 const Header = ({ currentUser, hidden, signOutStart }) => {
     return (
         <HeaderContainer>
             <LogoContainer to='/'>
-                <Logo className="logo" />
+                <MainLogo src={mainLogo} className="logo" />
             </LogoContainer>
             <OptionsContainer >
                 <OptionLink to='/'>
